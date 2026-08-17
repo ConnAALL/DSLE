@@ -1,0 +1,43 @@
+schema_version: 1
+id: stray_demon
+display_name: Stray Demon
+aliases: []
+availability: supported
+save_states:
+  standard: stray_demon.sl2
+  boosted: stray_demon_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 32, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [616, 4056, 1960, 53692], bit: 0}
+victory:
+  hp_zero_is_victory: true
+  templates: [stray_demon_post, humanity, twin_humanities]
+  template_threshold: 0.8
+readiness:
+  mode: none
+  template: null
+  threshold: 0.9
+  timeout_s: 60.0
+  advance_key: w
+  advance_hold_s: 0.05
+  poll_s: 0.3
+  interact_after_ready: false
+setup:
+  replace:
+    - {op: ensure_menu}
+    - {op: load_save}
+    - {op: sleep, seconds: 5.0}
+    - {op: set_flag, flag: no_damage, enable: true}
+    - {op: sleep, seconds: 7.0}
+    - {op: teleport_player, x: 3.16, y: -21.40, z: 182.72}
+    - {op: sleep, seconds: 5.0}
+    - {op: sleep, seconds: 1.5}
+    - {op: set_flag, flag: no_dead, enable: false}
+    - {op: set_flag, flag: no_damage, enable: false}
+cleanup: default
+metadata:
+  tier: mid
+  expected_hp: 5800
+  description: Stronger Asylum Demon variant reached without fog interaction and staged by protected teleport.

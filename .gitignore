@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.coverage
+.pytest_cache/
+.ruff_cache/
+.venv/
+build/
+dist/
+runs/
+runtime-data/
+screenshots/
+.dsle-state/
+.dsle-control/
+.dsle-dev-state/
+.dsle-dev-control/
+temp/
+*.log
+
+# The commercial game is never committed.
+Dark.Souls.Remastered.v1.04/
+game/

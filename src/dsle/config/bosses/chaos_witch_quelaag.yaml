@@ -1,0 +1,28 @@
+schema_version: 1
+id: chaos_witch_quelaag
+display_name: Chaos Witch Quelaag
+aliases: [quelaag]
+availability: supported
+save_states:
+  standard: chaos_witch_quelaag.sl2
+  boosted: chaos_witch_quelaag_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 1208, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 2], bit: 6}
+victory:
+  hp_zero_is_victory: false
+  templates: [chaos_witch_quelaag_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup:
+  preset: fog_gate
+  append:
+    - {op: sleep, seconds: 3.0}
+    - {op: tap_key, key: esc, hold_s: 0.1}
+    - {op: sleep, seconds: 3.0}
+cleanup: default
+metadata:
+  tier: mid
+  expected_hp: 3139
+  description: Mixed-range fight whose persistent lava pools make ground-state awareness important.

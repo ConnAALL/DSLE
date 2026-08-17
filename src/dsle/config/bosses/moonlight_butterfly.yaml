@@ -1,0 +1,23 @@
+schema_version: 1
+id: moonlight_butterfly
+display_name: Moonlight Butterfly
+aliases: [butterfly]
+availability: supported
+save_states:
+  standard: moonlight_butterfly.sl2
+  boosted: moonlight_butterfly_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 576, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 8563], bit: 3}
+victory:
+  hp_zero_is_victory: true
+  templates: [moonlight_butterfly_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup: fog_gate
+cleanup: default
+metadata:
+  tier: easy
+  expected_hp: 1506
+  description: Flying ranged boss that requires projectile avoidance and patience for periodic landing windows.

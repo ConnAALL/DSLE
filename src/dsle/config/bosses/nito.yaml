@@ -1,0 +1,33 @@
+schema_version: 1
+id: nito
+display_name: Gravelord Nito
+aliases: [gravelord nito]
+availability: supported
+save_states:
+  standard: nito.sl2
+  boosted: nito_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 696, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 3], bit: 0}
+victory:
+  hp_zero_is_victory: false
+  templates: [nito_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup:
+  preset: fog_gate
+  append:
+    - {op: set_flag, flag: no_damage, enable: true}
+    - {op: sleep, seconds: 3.0}
+    - {op: teleport_player, x: -138.84, y: -37.63, z: -265.102}
+    - {op: sleep, seconds: 2.0}
+    - {op: tap_key, key: esc, hold_s: 0.1}
+    - {op: sleep, seconds: 3.0}
+    - {op: set_flag, flag: no_damage, enable: false}
+    - {op: sleep, seconds: 2.0}
+cleanup: default
+metadata:
+  tier: hard
+  expected_hp: 4317
+  description: Dark multi-threat encounter combining a large area attack with resurrecting skeleton minions.

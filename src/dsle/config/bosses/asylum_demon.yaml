@@ -1,0 +1,23 @@
+schema_version: 1
+id: asylum_demon
+display_name: Asylum Demon
+aliases: [asylum]
+availability: supported
+save_states:
+  standard: asylum_demon.sl2
+  boosted: asylum_demon_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 48, 8, 504, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 1], bit: 7}
+victory:
+  hp_zero_is_victory: false
+  templates: [asylum_demon_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup: fog_gate
+cleanup: default
+metadata:
+  tier: tutorial
+  expected_hp: 813
+  description: Slow, telegraphed melee boss used as the baseline infrastructure and combat task.

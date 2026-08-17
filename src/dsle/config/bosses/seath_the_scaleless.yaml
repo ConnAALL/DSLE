@@ -1,0 +1,23 @@
+schema_version: 1
+id: seath_the_scaleless
+display_name: Seath the Scaleless
+aliases: [seath]
+availability: supported
+save_states:
+  standard: seath_the_scaleless.sl2
+  boosted: seath_the_scaleless_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 976, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 2], bit: 1}
+victory:
+  hp_zero_is_victory: false
+  templates: [seath_the_scaleless_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup: fog_gate
+cleanup: default
+metadata:
+  tier: mid
+  expected_hp: 2643
+  description: Crystal-breath encounter with an auxiliary immortality-crystal objective and broad ranged hazards.

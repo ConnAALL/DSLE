@@ -1,0 +1,62 @@
+schema_version: 1
+
+environment:
+  action_ms: 250
+  auto_lock_on: true
+  # The ground-truth runner repairs lock-on whenever it observes that lock-on is lost.
+  lock_on_interval: 1
+
+observation:
+  height: 600
+  width: 800
+  monitor_index: 0
+  template_threshold: 0.9
+
+reward:
+  boss_damage: 1.0
+  player_damage: -0.25
+  step_penalty: -0.001
+  win_bonus: 100.0
+  death_penalty: -10.0
+  timeout_penalty: 0.0
+  runtime_error_penalty: -10.0
+
+limits:
+  max_steps: 7200
+  setup_timeout_s: 120.0
+  cleanup_timeout_s: 60.0
+  minimum_victory_step: 1
+  victory_confirmations: 1
+
+readiness:
+  mode: traverse_light
+  template: traverseLight
+  threshold: 0.9
+  timeout_s: 60.0
+  advance_key: w
+  advance_hold_s: 0.05
+  poll_s: 0.3
+  interact_after_ready: true
+
+setup_presets:
+  fog_gate:
+    - {op: ensure_menu}
+    - {op: load_save}
+    - {op: wait_until_ready}
+    - {op: sleep, seconds: 1.5}
+    - {op: set_flag, flag: no_dead, enable: false}
+    - {op: set_flag, flag: no_damage, enable: false}
+
+cleanup_presets:
+  default:
+    # Victory templates describe reward/post-boss screens, so never wait for them on loss.
+    - {op: set_flag, flag: no_dead, enable: true, when: win}
+    - {op: wait_for_victory, timeout_s: 50.0, continue_on_timeout: true, when: win}
+    - {op: sleep, seconds: 3.0}
+    - {op: return_to_title}
+  retreat_before_title:
+    - {op: set_flag, flag: no_dead, enable: true, when: win}
+    - {op: wait_for_victory, timeout_s: 50.0, continue_on_timeout: true, when: win}
+    - {op: sleep, seconds: 3.0}
+    - {op: hold_key, key: s, duration_s: 5.0}
+    - {op: return_to_title}

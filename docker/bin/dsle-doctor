@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+# Run DSLE's host/container dependency and runtime diagnostic CLI. Using exec
+# preserves its exit status and lets signals reach the Python process directly.
+exec python3 -m dsle.cli.doctor "$@"

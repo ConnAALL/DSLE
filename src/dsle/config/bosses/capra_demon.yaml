@@ -1,0 +1,23 @@
+schema_version: 1
+id: capra_demon
+display_name: Capra Demon
+aliases: [capra]
+availability: supported
+save_states:
+  standard: capra_demon.sl2
+  boosted: capra_demon_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 112, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 3955], bit: 1}
+victory:
+  hp_zero_is_victory: false
+  templates: [capra_demon_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup: fog_gate
+cleanup: default
+metadata:
+  tier: early
+  expected_hp: 1176
+  description: Fast melee encounter in a tiny room with two dogs and a tactically important staircase.

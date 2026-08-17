@@ -1,0 +1,32 @@
+schema_version: 1
+id: bed_of_chaos
+display_name: Bed of Chaos
+aliases: [bed, the bed of chaos]
+availability: supported
+save_states:
+  standard: bed_of_chaos.sl2
+  boosted: bed_of_chaos_boosted.sl2
+memory:
+  # Bed of Chaos has no conventional HP value. DSLE presents its defeated
+  # event flag as binary health: 1 while alive and 0 after victory.
+  hp_chains: []
+  hp_mode: defeated_flag
+  defeated_flag: {offsets: [0, 2], bit: 5}
+victory:
+  hp_zero_is_victory: false
+  templates: [bed_of_chaos_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup:
+  preset: fog_gate
+  append:
+    - {op: set_flag, flag: no_damage, enable: true}
+    - {op: sleep, seconds: 3.0}
+    - {op: teleport_player, x: 522.002, y: 394.87, z: -440.13}
+    - {op: sleep, seconds: 2.0}
+    - {op: set_flag, flag: no_damage, enable: false}
+    - {op: sleep, seconds: 0.5}
+cleanup: default
+metadata:
+  tier: hard
+  expected_hp: 1
+  description: Environmental multi-stage encounter represented by binary health derived from its defeated event flag.

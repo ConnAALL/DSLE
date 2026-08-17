@@ -1,0 +1,23 @@
+schema_version: 1
+id: great_grey_wolf_sif
+display_name: Great Grey Wolf Sif
+aliases: [sif, great gray wolf sif]
+availability: supported
+save_states:
+  standard: great_grey_wolf_sif.sl2
+  boosted: great_grey_wolf_sif_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 800, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 3], bit: 2}
+victory:
+  hp_zero_is_victory: false
+  templates: [great_grey_wolf_sif_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup: fog_gate
+cleanup: default
+metadata:
+  tier: mid
+  expected_hp: 3432
+  description: Fast greatsword-wielding wolf with wide sweeps and a visible low-health behavior change.

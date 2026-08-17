@@ -1,0 +1,58 @@
+name: dsle
+
+services:
+  runtime:
+    image: ${DSLE_IMAGE:-dsle-runtime:0.1.0}
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: ${DSLE_IMAGE_TARGET:-runtime}
+    container_name: ${DSLE_CONTAINER_NAME:-dsle-runtime}
+    init: true
+    stdin_open: true
+    tty: true
+    gpus: all
+    runtime: nvidia
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    environment:
+      DSLE_ASSET_DIR: /opt/dsle/assets
+      DSLE_CONTAINER: "1"
+      DSLE_DESKTOP_RES: ${DSLE_RESOLUTION:-800x600}
+      DSLE_GAME_DIR: /opt/dsle/game
+      DSLE_INSTANCE_CONFIG: /var/lib/dsle/config/instances.json
+      DSLE_OUTPUT_DIR: /var/lib/dsle/results
+      DSLE_RUNTIME_SOCKET: /var/lib/dsle/run/dsle.sock
+      DSLE_RUNTIME_TOKEN_FILE: /var/lib/dsle/run/dsle.token
+      DSLE_STATE_DIR: /var/lib/dsle
+      DSLE_HOST_GID: ${DSLE_HOST_GID:-1000}
+      DSLE_HOST_UID: ${DSLE_HOST_UID:-1000}
+      DXVK_STATE_CACHE_PATH: /var/lib/dsle/dxvk-cache
+      NVIDIA_DRIVER_CAPABILITIES: graphics,utility,compute,display
+      NVIDIA_VISIBLE_DEVICES: ${NVIDIA_VISIBLE_DEVICES:-all}
+      PULSE_SERVER: unix:/var/lib/dsle/pulse/native
+      PYTHONUNBUFFERED: "1"
+      WINEDEBUG: ${WINEDEBUG:--all}
+      WINEPREFIX_TEMPLATE: /opt/dsle/wine-template
+      XDG_RUNTIME_DIR: /var/lib/dsle/xdg/container
+    volumes:
+      - type: bind
+        source: ${DSLE_GAME_DIR:-/opt/dsle/missing-game}
+        target: /opt/dsle/game
+        read_only: true
+      - type: bind
+        source: ${DSLE_STATE_DIR:-../.dsle-state}
+        target: /var/lib/dsle
+    ports:
+      - "${DSLE_VNC_PORT_BINDING:-127.0.0.1:5901-5930:5901-5930}"
+    shm_size: "2gb"
+    stop_grace_period: 45s
+    healthcheck:
+      test: ["CMD", "dsle-health"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 20s

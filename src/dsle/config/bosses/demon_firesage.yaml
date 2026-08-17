@@ -1,0 +1,23 @@
+schema_version: 1
+id: demon_firesage
+display_name: Demon Firesage
+aliases: [firesage]
+availability: supported
+save_states:
+  standard: demon_firesage.sl2
+  boosted: demon_firesage_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 96, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 16176], bit: 5}
+victory:
+  hp_zero_is_victory: true
+  templates: [demon_firesage_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup: fog_gate
+cleanup: default
+metadata:
+  tier: mid
+  expected_hp: 5950
+  description: High-health Asylum Demon variant whose fire area attacks test behavioral transfer.

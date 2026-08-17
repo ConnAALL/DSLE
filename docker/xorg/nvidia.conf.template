@@ -1,0 +1,34 @@
+Section "ServerLayout"
+  Identifier "DSLELayout"
+  Screen 0 "DSLEScreen"
+EndSection
+
+Section "Module"
+  Load "glx"
+EndSection
+
+Section "Device"
+  Identifier "DSLENvidia"
+  Driver "nvidia"
+  VendorName "NVIDIA Corporation"
+  Option "AllowEmptyInitialConfiguration" "true"
+  Option "UseDisplayDevice" "none"
+  Option "NoLogo" "true"
+EndSection
+
+Section "Monitor"
+  Identifier "DSLEMonitor"
+  HorizSync 28.0-120.0
+  VertRefresh 30.0-144.0
+EndSection
+
+Section "Screen"
+  Identifier "DSLEScreen"
+  Device "DSLENvidia"
+  Monitor "DSLEMonitor"
+  DefaultDepth @DEPTH@
+  SubSection "Display"
+    Depth @DEPTH@
+    Virtual @WIDTH@ @HEIGHT@
+  EndSubSection
+EndSection

@@ -1,0 +1,24 @@
+schema_version: 1
+id: bell_gargoyles
+display_name: Bell Gargoyles
+aliases: [gargoyles]
+availability: supported
+save_states:
+  standard: bell_gargoyles.sl2
+  boosted: bell_gargoyles_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 1344, 200, 1000]
+    - [8, 1352, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 3], bit: 4}
+victory:
+  hp_zero_is_victory: false
+  templates: [bell_gargoyles_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup: fog_gate
+cleanup: default
+metadata:
+  tier: early
+  expected_hp: 1522
+  description: Rooftop duo encounter where a second gargoyle joins after the first reaches half health.

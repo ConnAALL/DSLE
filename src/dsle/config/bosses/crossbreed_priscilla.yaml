@@ -1,0 +1,35 @@
+schema_version: 1
+id: crossbreed_priscilla
+display_name: Crossbreed Priscilla
+aliases: [priscilla]
+availability: supported
+save_states:
+  standard: crossbreed_priscilla.sl2
+  boosted: crossbreed_priscilla_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 440, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 3], bit: 3}
+victory:
+  hp_zero_is_victory: false
+  templates: [crossbreed_priscilla_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup:
+  preset: fog_gate
+  append:
+    - {op: set_flag, flag: no_damage, enable: true}
+    - {op: sleep, seconds: 1.0}
+    - {op: teleport_player, x: -23.03441047668457, y: 698.2172241210938, z: 60.07139587402344}
+    - {op: sleep, seconds: 1.0}
+    - {op: repeat_actions, actions: [light_attack], duration_s: 0.05, hold_s: 0.05, interval_s: 0.0}
+    # Let the opening strike connect before moving the player away from Priscilla.
+    - {op: sleep, seconds: 1.0}
+    - {op: teleport_player, x: -23.04547882080078, y: 710.9319458007812, z: 60.551387786865234}
+    - {op: sleep, seconds: 0.1}
+    - {op: set_flag, flag: no_damage, enable: false}
+cleanup: default
+metadata:
+  tier: mid
+  expected_hp: 2000
+  description: An initially passive boss that becomes invisible and tests tracking without direct visual confirmation.

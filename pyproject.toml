@@ -1,0 +1,105 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dsle"
+version = "0.1.0"
+description = "A Gymnasium learning environment for Dark Souls: Remastered boss encounters"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [
+  {name = "Derin Gezgin"},
+  {name = "Jim O'Connor"},
+  {name = "Tanner Goodwin"},
+  {name = "Gary B. Parker"},
+]
+dependencies = [
+  "gymnasium>=0.29,<2",
+  "numpy>=1.24",
+  "platformdirs>=3",
+  "PyYAML>=6",
+  "rich>=13.7,<15",
+]
+
+[project.optional-dependencies]
+runtime = [
+  "mss>=9",
+  "opencv-python-headless>=4.8",
+  "python-xlib>=0.33",
+]
+examples = [
+  "cma>=3.4",
+  "scipy>=1.10",
+  "torch>=2.0",
+]
+viewer = [
+  "Pillow>=10,<13",
+]
+test = [
+  "build>=1.2",
+  "coverage[toml]>=7",
+  "pytest>=9.0.3",
+  "pytest-cov>=5",
+  "ruff>=0.9",
+  "setuptools>=77",
+  "mypy>=1.14",
+  "types-PyYAML",
+  "types-python-xlib",
+  "wheel>=0.41",
+]
+release = [
+  "bandit>=1.8",
+  "check-wheel-contents>=0.6",
+  "pip-audit>=2.7",
+  "twine>=5",
+]
+all = ["dsle[runtime,examples,test,release,viewer]"]
+
+[project.scripts]
+dsle-dev = "dsle.cli.dev:main"
+dsle-doctor = "dsle.cli.doctor:main"
+dsle-instances = "dsle.cli.instances:main"
+dsle-viewer = "dsle.cli.viewer:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+dsle = ["py.typed", "config/*.yaml", "config/bosses/*.yaml"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+markers = [
+  "contract: validates the supplied game and public artifact without launching it",
+  "docker: builds or exercises the NVIDIA container",
+  "game: launches the real game and requires an NVIDIA runtime",
+  "boss: resets and steps a real boss encounter",
+  "slow: takes more than a few seconds",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["dsle"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+# Hardware adapters are covered by separately gated NVIDIA/game tests.  Keep
+# the always-on aggregate floor honest rather than excluding those modules.
+fail_under = 60
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["E501"]

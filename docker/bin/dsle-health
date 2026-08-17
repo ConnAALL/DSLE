@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+SOCKET_PATH="${DSLE_RUNTIME_SOCKET:-/var/lib/dsle/run/dsle.sock}"
+TOKEN_FILE="${DSLE_RUNTIME_TOKEN_FILE:-/var/lib/dsle/run/dsle.token}"
+
+# Confirm that the container, NVIDIA runtime, and attached game are usable.
+dsle-doctor --container --require-game --quiet
+
+# Report healthy only when the authenticated DSLE runtime server also responds.
+exec python3 -m dsle.runtime.server \
+  --ping \
+  --socket "${SOCKET_PATH}" \
+  --token-file "${TOKEN_FILE}"

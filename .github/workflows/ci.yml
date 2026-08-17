@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e '.[runtime,test,release]' 'cma==3.4.0'
+
+      - name: Static checks
+        run: |
+          ruff check src tests examples
+          ruff format --check src tests examples
+          mypy src/dsle
+          bandit -q -r src -lll
+
+      - name: Audit dependencies
+        run: pip-audit . --strict
+
+      - name: Unit and artifact contract
+        run: python -m pytest tests/unit tests/contract
+
+      - name: Build distributions
+        run: python -m build
+
+      - name: Validate distributions
+        run: |
+          twine check dist/*
+          check-wheel-contents dist/*.whl
+          python -m zipfile --list dist/dsle-0.1.0-py3-none-any.whl

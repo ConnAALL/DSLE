@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+# Forward instance configuration and lifecycle commands to DSLE's Python CLI.
+exec python3 -m dsle.cli.instances "$@"

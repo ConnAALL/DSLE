@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+SOCKET_PATH="${DSLE_RUNTIME_SOCKET:-/var/lib/dsle/run/dsle.sock}"
+TOKEN_FILE="${DSLE_RUNTIME_TOKEN_FILE:-/var/lib/dsle/run/dsle.token}"
+
+# Start the authenticated runtime server on the configured Unix socket. Using
+# exec makes Python the signal-receiving process for clean container shutdown.
+exec python3 -m dsle.runtime.server \
+  --socket "${SOCKET_PATH}" \
+  --token-file "${TOKEN_FILE}" \
+  "$@"

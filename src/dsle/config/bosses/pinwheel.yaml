@@ -1,0 +1,33 @@
+schema_version: 1
+id: pinwheel
+display_name: Pinwheel
+aliases: []
+availability: supported
+save_states:
+  standard: pinwheel.sl2
+  boosted: pinwheel_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 664, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 3], bit: 1}
+victory:
+  hp_zero_is_victory: false
+  templates: [pinwheel_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup:
+  preset: fog_gate
+  append:
+    - {op: set_flag, flag: no_damage, enable: true}
+    - {op: sleep, seconds: 3.0}
+    - {op: teleport_player, x: 46.44, y: 164.09, z: -165.66}
+    - {op: sleep, seconds: 2.0}
+    - {op: tap_key, key: esc, hold_s: 0.1}
+    - {op: sleep, seconds: 3.0}
+    - {op: set_flag, flag: no_damage, enable: false}
+    - {op: sleep, seconds: 2.0}
+cleanup: retreat_before_title
+metadata:
+  tier: easy
+  expected_hp: 1326
+  description: Low-health ranged boss that creates clones if the encounter lasts long enough.

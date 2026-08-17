@@ -1,0 +1,43 @@
+# Single authoritative Docker build-context allowlist. The commercial game,
+# local state, repository metadata, and unrelated files never reach Docker.
+**
+
+# Application payload
+!LICENSE
+!src
+!src/**
+!assets
+!assets/README.md
+!assets/checksums.sha256
+!assets/scenarios
+!assets/scenarios/*.sl2
+!assets/templates
+!assets/templates/bosses
+!assets/templates/bosses/*.png
+!assets/templates/duringGame
+!assets/templates/duringGame/*.png
+!assets/templates/introScreen
+!assets/templates/introScreen/*.png
+!assets/templates/pauseReturnMenu
+!assets/templates/pauseReturnMenu/*.png
+!examples
+!examples/**
+
+# Files consumed explicitly by docker/Dockerfile
+!docker
+!docker/container_requirements.txt
+!docker/entrypoint.sh
+!docker/bin
+!docker/bin/dsle-doctor
+!docker/bin/dsle-health
+!docker/bin/dsle-instances
+!docker/bin/dsle-server
+!docker/xorg
+!docker/xorg/nvidia.conf.template
+
+# Defense in depth if a future allowlist rule becomes broader.
+**/__pycache__
+**/__pycache__/**
+**/*.pyc
+**/*.pyo
+**/DarkSoulsRemastered.exe

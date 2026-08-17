@@ -1,0 +1,43 @@
+schema_version: 1
+id: four_kings
+display_name: Four Kings
+aliases: [the four kings]
+availability: supported
+save_states:
+  standard: four_kings.sl2
+  boosted: four_kings_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 816, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 2], bit: 2}
+victory:
+  hp_zero_is_victory: false
+  templates: [four_kings_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup:
+  replace:
+    - {op: ensure_menu}
+    - {op: load_save}
+    - {op: sleep, seconds: 10.0}
+    - {op: set_flag, flag: no_damage, enable: true}
+    - {op: sleep, seconds: 3.0}
+    - {op: teleport_player, x: 81.07, y: -0.91, z: -163.02}
+    - {op: sleep, seconds: 2.0}
+    - {op: set_flag, flag: no_damage, enable: false}
+    - {op: sleep, seconds: 2.0}
+    - {op: wait_until_ready}
+    - {op: sleep, seconds: 1.5}
+    - {op: set_flag, flag: no_dead, enable: false}
+    - {op: set_flag, flag: no_damage, enable: false}
+    - {op: set_flag, flag: no_damage, enable: true}
+    - {op: sleep, seconds: 3.0}
+    - {op: teleport_player, x: 82.58, y: -1.001, z: -311.0}
+    - {op: sleep, seconds: 2.0}
+    - {op: set_flag, flag: no_damage, enable: false}
+    - {op: hold_key, key: w, duration_s: 10.0}
+cleanup: default
+metadata:
+  tier: hard
+  expected_hp: 2502
+  description: Sequential multi-boss damage race in the Abyss that strongly rewards sustained aggression.

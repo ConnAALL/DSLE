@@ -1,0 +1,15 @@
+# Development-only additions to docker/compose.yaml. The repository remains on
+# the host and is mounted read-only so Python, YAML, saves, templates, and
+# runtime support files are observed live by each new development command.
+services:
+  runtime:
+    container_name: ${DSLE_CONTAINER_NAME:-dsle-dev-runtime}
+    environment:
+      DSLE_ASSET_DIR: /workspace/dsle/assets
+      DSLE_DEV_MODE: "1"
+      PYTHONPATH: /workspace/dsle/src
+    volumes:
+      - type: bind
+        source: ${DSLE_DEV_SOURCE_DIR:?set DSLE_DEV_SOURCE_DIR to the repository root}
+        target: /workspace/dsle
+        read_only: true

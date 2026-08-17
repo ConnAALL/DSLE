@@ -1,0 +1,36 @@
+schema_version: 1
+id: gwyn_lord_of_cinder
+display_name: Gwyn, Lord of Cinder
+aliases: [gwyn]
+availability: supported
+save_states:
+  standard: gwyn_lord_of_cinder.sl2
+  boosted: gwyn_lord_of_cinder_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 176, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 2], bit: 0}
+victory:
+  hp_zero_is_victory: false
+  templates: [gwyn_lord_of_cinder_post, humanity, twin_humanities, gwyn_lord_of_cinder_victory]
+  template_threshold: 0.8
+setup:
+  replace:
+    - {op: ensure_menu}
+    - {op: load_save}
+    # Gwyn can attack during the common post-fog settle. Detect the prompt
+    # without crossing it, enable protection, and only then enter the arena.
+    - {op: wait_until_ready, interact_after_ready: false}
+    - {op: set_flag, flag: no_damage, enable: true}
+    - {op: tap_key, key: e, hold_s: 0.05}
+    - {op: sleep, seconds: 1.5}
+    - {op: set_flag, flag: no_dead, enable: false}
+    - {op: sleep, seconds: 1.0}
+    # Restore normal episode dynamics immediately before reset() returns.
+    - {op: set_flag, flag: no_damage, enable: false}
+cleanup: default
+metadata:
+  tier: hard
+  expected_hp: 4250
+  description: Final boss encounter emphasizing rapid reactions, defensive timing, and optional parry precision.

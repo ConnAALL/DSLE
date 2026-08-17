@@ -1,0 +1,31 @@
+schema_version: 1
+id: iron_golem
+display_name: Iron Golem
+aliases: []
+availability: supported
+save_states:
+  standard: iron_golem.sl2
+  boosted: iron_golem_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 80, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 2], bit: 4}
+victory:
+  hp_zero_is_victory: false
+  templates: [iron_golem_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup:
+  preset: fog_gate
+  append:
+    - {op: set_flag, flag: no_damage, enable: true}
+    - {op: sleep, seconds: 3.0}
+    - {op: teleport_player, x: 108.45, y: 254.87, z: 83.26}
+    - {op: sleep, seconds: 0.5}
+    - {op: set_flag, flag: no_damage, enable: false}
+    - {op: sleep, seconds: 2.0}
+cleanup: default
+metadata:
+  tier: mid
+  expected_hp: 2880
+  description: Heavy melee fight on a narrow platform where staggering can produce an environmental victory.

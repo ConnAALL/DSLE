@@ -1,0 +1,30 @@
+schema_version: 1
+id: gaping_dragon
+display_name: Gaping Dragon
+aliases: []
+availability: supported
+save_states:
+  standard: gaping_dragon.sl2
+  boosted: gaping_dragon_boosted.sl2
+memory:
+  hp_chains:
+    - [8, 720, 200, 1000]
+  hp_mode: first_valid
+  defeated_flag: {offsets: [0, 3], bit: 5}
+victory:
+  hp_zero_is_victory: false
+  templates: [gaping_dragon_post, humanity, twin_humanities]
+  template_threshold: 0.8
+setup:
+  preset: fog_gate
+  append:
+    - {op: sleep, seconds: 3.0}
+    - {op: tap_key, key: esc, hold_s: 0.1}
+    - {op: sleep, seconds: 3.0}
+    - {op: teleport_player, x: -166.93, y: 0.9384, z: -99.95}
+    - {op: sleep, seconds: 2.0}
+cleanup: default
+metadata:
+  tier: mid
+  expected_hp: 4401
+  description: Large, slow boss whose charge and long recovery windows emphasize positioning and patience.
